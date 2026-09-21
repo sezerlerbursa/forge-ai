@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forge AI — Image Studio</title><link rel="manifest" href="/static/manifest.webmanifest"><meta name="theme-color" content="#0b1020"><link rel="apple-touch-icon" href="/static/icon-192.png"><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">F</div><div><strong>Forge AI</strong><small>Local Creative Studio</small></div></div>
+  <button class="new" id="newProject">＋ Yeni proje</button>
+  <nav><a class="active">✦ <span>Stüdyo</span></a><a>⌁ <span>Araçlar</span></a><a>▧ <span>Galeri</span></a><a>⚙ <span>Ayarlar</span></a></nav>
+  <div class="sidebottom"><div class="localdot"><i></i> Yerel mod aktif</div><small>Dosyalar cihazında kalır.</small></div>
+</aside>
+<main>
+<header><div><div class="eyebrow">FORGE AI / IMAGE STUDIO</div><h1>Görselini yeniden tasarla.</h1><p>Yükle · maskele · prompt ver · sonucu al.</p></div><div class="top-actions"><button id="undo">↶</button><button id="redo">↷</button><button class="export" id="exportBtn">Dışa aktar</button></div></header>
+<section class="workspace">
+<div class="leftpanel">
+  <div class="upload" id="drop"><div class="uploadicon">↑</div><b>Görsel yükle</b><span>PNG · JPG · WEBP</span><input id="file" type="file" accept="image/*" hidden><button id="pick">Dosya seç</button></div>
+  <div class="tools"><label>MOD</label><button class="tool active" data-mode="image-edit">✦ <span>Üretken Düzenleme</span><em>Prompt + maske</em></button><button class="tool" data-mode="remove">⌫ <span>Nesne Sil</span><em>Maskeli temizleme</em></button><button class="tool" data-mode="extend">⤢ <span>Genişlet</span><em>Outpainting</em></button><button class="tool" data-mode="enhance">✧ <span>İyileştir</span><em>Yerel enhance</em></button></div>
+</div>
+<div class="canvaswrap">
+  <div class="canvashead"><span>Çalışma alanı</span><span id="size">—</span></div>
+  <div class="canvas" id="canvas"><div class="empty" id="empty"><div>Görselini buraya bırak</div><small>veya soldan yükle</small></div><img id="preview"><canvas id="maskCanvas"></canvas><div class="brushCursor" id="brushCursor"></div></div>
+  <div class="canvasbar"><button id="maskBtn">✎ Maske çiz</button><button id="clearMask">⌫ Maskeyi temizle</button><div class="spacer"></div><span id="maskState">Maske kapalı</span></div>
+</div>
+<div class="rightpanel">
+  <div class="field"><label>Prompt</label><textarea id="prompt" placeholder="Örn. Arka planı modern bir stüdyo ortamına dönüştür, ana özneyi koru…"></textarea></div>
+  <div class="chips"><button data-prompt="Arka planı değiştir, ana özneyi koru.">Arka plan</button><button data-prompt="Daha gerçekçi, doğal ışık ve cilt tonları.">Daha gerçekçi</button><button data-prompt="Renkleri sinematik ve dengeli yap.">Sinematik</button></div>
+  <div class="settings">
+    <div class="row"><span>Motor</span><select id="engine"><option value="ai">Gerçek AI — Hugging Face</option><option value="local">Ücretsiz yerel işlem</option></select></div>
+    <div class="row"><span>Model</span><select id="model"><option value="black-forest-labs/FLUX.1-Kontext-dev">FLUX.1-Kontext-dev</option><option value="black-forest-labs/FLUX.2-klein-9B">FLUX.2-klein-9B</option></select></div>
+    <div class="row"><span>Hugging Face token</span><input id="hfToken" class="token" type="password" autocomplete="off" placeholder="hf_… (opsiyonel; sunucu secret'ı tercih edilir)"></div>
+    <div class="slider"><div><span>Güç</span><output id="intensityOut">70%</output></div><input id="intensity" type="range" min="0" max="100" value="70"></div><div class="slider aiOnly"><div><span>Adım</span><output id="stepsOut">20</output></div><input id="steps" type="range" min="4" max="40" value="20"></div><div class="slider aiOnly"><div><span>Yönlendirme</span><output id="guidanceOut">3.5</output></div><input id="guidance" type="range" min="1" max="12" step="0.5" value="3.5"></div>
+    <div class="row"><span>Çıktı</span><select id="ratio"><option value="original">Orijinal</option><option value="9:16">9:16</option></select></div>
+    <div class="slider"><div><span>Fırça</span><output id="brushOut">36 px</output></div><input id="brush" type="range" min="8" max="120" value="36"></div>
+  </div>
+  <button class="generate" id="generate">✦ Oluştur <span id="generateText">Gerçek AI</span></button>
+  <div id="status" class="status">Hazır.</div>
+  <div id="resultCard" class="resultCard hidden"><div class="resultTop"><b>Sonuç</b><button id="useResult">Sonucu çalışma alanına al</button></div><img id="resultImg"></div>
+</div>
+</section>
+</main></div>
+<script src="/static/app.js"></script><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/static/sw.js").catch(()=>{})}</script>
+</body></html>
